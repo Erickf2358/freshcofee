@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext } from 'react'
-import { productos } from '../data/productos'
+import useSWR from 'swr'
 import clienteAxios from '../axios/axios'
 
 const QuioscoContext = createContext()
@@ -10,6 +10,10 @@ export default function QuioscoProvider({ children }) {
   const [productoSeleccionado, setProductoSeleccionado] = useState({})
   const [pedido, setPedido] = useState([])
   const [categorias, setCategorias] = useState([])
+  
+
+  const fetcher = () => clienteAxios('/api/productos').then(d => d.data.data)
+  const { data: productos = [] } = useSWR('/api/productos', fetcher)
 
   useEffect(() => {
     const obtenerCategorias = async () => {

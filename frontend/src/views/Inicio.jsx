@@ -6,7 +6,7 @@ export default function Inicio() {
 
   const productosFiltrados = productos.filter(
     producto => producto.categoria_id === categoriaActual.id
-  )
+  ) ?? []
 
   return (
     <div className="p-10">
